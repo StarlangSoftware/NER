@@ -63,7 +63,7 @@ public class ViewTreeNERAnnotationFrame extends ViewTreeAnnotationFrame {
                     int row = dataTable.rowAtPoint(evt.getPoint());
                     if (row >= 0) {
                         String fileName = data.get(row).get(0);
-                        treeNERFrame.addPanelToFrame(new DataCollector.ParseTree.NER.TreeNERPanel(TreeEditorPanel.treePath, fileName, false), fileName);
+                        treeNERFrame.addPanelToFrame(new TreeNERPanel(TreeEditorPanel.treePath, fileName, false), fileName);
                     }
                 }
             }

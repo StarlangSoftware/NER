@@ -28,13 +28,13 @@ public class SentenceNERFrame extends SentenceAnnotatorFrame {
 
     @Override
     protected SentenceAnnotatorPanel generatePanel(String currentPath, String rawFileName) {
-        return new DataCollector.Sentence.NER.SentenceNERPanel(currentPath, rawFileName);
+        return new SentenceNERPanel(currentPath, rawFileName);
     }
 
     public void next(int count){
         super.next(count);
-        DataCollector.Sentence.NER.SentenceNERPanel current;
-        current = (DataCollector.Sentence.NER.SentenceNERPanel) ((JScrollPane) projectPane.getSelectedComponent()).getViewport().getView();
+        SentenceNERPanel current;
+        current = (SentenceNERPanel) ((JScrollPane) projectPane.getSelectedComponent()).getViewport().getView();
         if (autoNERDetectionOption.isSelected()){
             current.autoDetect();
         }

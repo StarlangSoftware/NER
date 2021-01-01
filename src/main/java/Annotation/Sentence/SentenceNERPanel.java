@@ -2,8 +2,8 @@ package Annotation.Sentence;
 
 import AnnotatedSentence.AnnotatedSentence;
 import AnnotatedSentence.AnnotatedWord;
-import AnnotatedSentence.AutoProcessor.AutoNER.TurkishSentenceAutoNER;
 import AnnotatedSentence.ViewLayerType;
+import AutoProcessor.Sentence.TurkishSentenceAutoNER;
 import DataCollector.Sentence.SentenceAnnotatorPanel;
 import NamedEntityRecognition.NamedEntityType;
 

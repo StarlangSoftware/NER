@@ -1,8 +1,8 @@
 package Annotation.ParseTree;
 
-import AnnotatedTree.AutoProcessor.AutoNER.TreeAutoNER;
-import AnnotatedTree.AutoProcessor.AutoNER.TurkishTreeAutoNER;
 import AnnotatedTree.TreeBankDrawable;
+import AutoProcessor.ParseTree.TreeAutoNER;
+import AutoProcessor.ParseTree.TurkishTreeAutoNER;
 import DataCollector.ParseTree.TreeEditorFrame;
 import DataCollector.ParseTree.TreeEditorPanel;
 

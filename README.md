@@ -100,3 +100,22 @@ Use below line to generate jar file:
             <artifactId>NER</artifactId>
             <version>1.0.1</version>
         </dependency>
+
+Detailed Description
+============
+
+## ParseTree
+
+In order to find the named entities in a parse tree, one uses autoNER method of the TreeAutoNER class.
+
+	ParseTreeDrawable parseTree = ...
+	TurkishTreeAutoNER turkishNer = new TurkishTreeAutoNER(ViewLayerType.Turkish);
+	turkishNer.autoNER(parseTree);
+
+## Sentence
+
+In order to find the named entities in a simple sentence, one uses autoNER method of the SentenceAutoNER class.
+
+	AnnotatedSentence sentence = ...
+	TurkishSentenceAutoNER turkishNer = new TurkishSentenceAutoNER();
+	turkishNer.autoNER(sentence);

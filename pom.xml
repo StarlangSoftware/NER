@@ -6,7 +6,7 @@
 
     <groupId>io.github.starlangsoftware</groupId>
     <artifactId>NER</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <packaging>jar</packaging>
 
     <name>NlpToolkit.NER</name>
@@ -49,18 +49,8 @@
     <dependencies>
         <dependency>
             <groupId>io.github.starlangsoftware</groupId>
-            <artifactId>AnnotatedSentence</artifactId>
-            <version>1.0.23</version>
-        </dependency>
-        <dependency>
-            <groupId>io.github.starlangsoftware</groupId>
-            <artifactId>AnnotatedTree</artifactId>
-            <version>1.0.16</version>
-        </dependency>
-        <dependency>
-            <groupId>io.github.starlangsoftware</groupId>
             <artifactId>DataCollector</artifactId>
-            <version>1.0.9</version>
+            <version>1.0.11</version>
         </dependency>
     </dependencies>
 
@@ -141,6 +131,21 @@
                                 </manifest>
                             </archive>
                             <finalName>sentence-ner</finalName>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>sentence-slot</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <archive>
+                                <manifest>
+                                    <mainClass>Annotation.Sentence.TestSentenceSlotFrame</mainClass>
+                                </manifest>
+                            </archive>
+                            <finalName>sentence-slot</finalName>
                         </configuration>
                     </execution>
                     <execution>

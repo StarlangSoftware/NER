@@ -1,12 +1,12 @@
 package AutoProcessor.ParseTree;
 
 import AnnotatedSentence.ViewLayerType;
-import AnnotatedTree.ParallelTreeBankDrawable;
 import AnnotatedTree.ParseNodeDrawable;
 import AnnotatedTree.ParseTreeDrawable;
 import AnnotatedTree.Processor.Condition.IsTurkishLeafNode;
 import AnnotatedTree.Processor.NodeDrawableCollector;
 import AnnotatedTree.TreeBankDrawable;
+import Translation.Tree.ParallelTreeBankDrawable;
 
 import java.io.File;
 import java.util.ArrayList;

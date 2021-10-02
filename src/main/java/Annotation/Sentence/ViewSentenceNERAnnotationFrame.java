@@ -5,6 +5,7 @@ import AnnotatedSentence.AnnotatedSentence;
 import AnnotatedSentence.AnnotatedWord;
 import DataCollector.ParseTree.TreeEditorPanel;
 import DataCollector.Sentence.ViewSentenceAnnotationFrame;
+import NamedEntityRecognition.NamedEntityType;
 
 import javax.swing.*;
 import java.awt.*;
@@ -70,8 +71,13 @@ public class ViewSentenceNERAnnotationFrame extends ViewSentenceAnnotationFrame 
                 row.add(sentence.getFileName());
                 row.add("" + (j + 1));
                 row.add(word.getName());
-                row.add(word.getNamedEntityType().toString());
-                row.add(sentence.toWords());
+                if (word.getNamedEntityType() != null && !word.getNamedEntityType().equals(NamedEntityType.NONE)){
+                    row.add(word.getNamedEntityType().toString());
+                    row.add("<html>" + sentence.toNamedEntityString(j) + "</html>");
+                } else {
+                    row.add("NONE");
+                    row.add(sentence.toWords());
+                }
                 row.add("" + i);
                 row.add("0");
                 data.add(row);

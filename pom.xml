@@ -50,7 +50,7 @@
         <dependency>
             <groupId>io.github.starlangsoftware</groupId>
             <artifactId>DataCollector</artifactId>
-            <version>1.0.15</version>
+            <version>1.0.29</version>
         </dependency>
     </dependencies>
 
@@ -119,21 +119,6 @@
                 <artifactId>maven-assembly-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>sentence-ner</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                        <configuration>
-                            <archive>
-                                <manifest>
-                                    <mainClass>Annotation.Sentence.TestSentenceNERFrame</mainClass>
-                                </manifest>
-                            </archive>
-                            <finalName>sentence-ner</finalName>
-                        </configuration>
-                    </execution>
-                    <execution>
                         <id>sentence-slot</id>
                         <phase>package</phase>
                         <goals>
@@ -146,21 +131,6 @@
                                 </manifest>
                             </archive>
                             <finalName>sentence-slot</finalName>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>tree-ner</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                        <configuration>
-                            <archive>
-                                <manifest>
-                                    <mainClass>Annotation.ParseTree.TestNERFrame</mainClass>
-                                </manifest>
-                            </archive>
-                            <finalName>tree-ner</finalName>
                         </configuration>
                     </execution>
                 </executions>

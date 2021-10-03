@@ -39,7 +39,7 @@ public class SentenceNERPanel extends SentenceAnnotatorPanel {
                 for (AnnotatedSentence annotatedSentence : mappedSentences.get(selectedWord.getName())){
                     for (int i = 0; i < annotatedSentence.wordCount(); i++){
                         AnnotatedWord word = (AnnotatedWord) annotatedSentence.getWord(i);
-                        if (word.getName().equals(selectedWord.getName())){
+                        if (word.getName().equals(selectedWord.getName()) && word.getNamedEntityType() != null){
                             if (word.getNamedEntityType().toString().equals(value)){
                                 examples += annotatedSentence.toNamedEntityString(i) + "<br>";
                                 count++;

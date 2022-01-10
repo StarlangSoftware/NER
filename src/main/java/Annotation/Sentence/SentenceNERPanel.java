@@ -29,6 +29,36 @@ public class SentenceNERPanel extends SentenceAnnotatorPanel {
         setLayout(new BorderLayout());
     }
 
+    @Override
+    protected void setWordLayer(){
+        clickedWord.setNamedEntityType((String) list.getSelectedValue());
+    }
+
+    @Override
+    protected int getMaxLayerLength(AnnotatedWord word, Graphics g){
+        int maxSize = g.getFontMetrics().stringWidth(word.getName());
+        if (word.getNamedEntityType() != null){
+            int size = g.getFontMetrics().stringWidth(word.getNamedEntityType().toString());
+            if (size > maxSize){
+                maxSize = size;
+            }
+        }
+        return maxSize;
+    }
+
+    @Override
+    protected void drawLayer(AnnotatedWord word, Graphics g, int currentLeft, int lineIndex, int wordIndex, int maxSize, ArrayList<Integer> wordSize, ArrayList<Integer> wordTotal) {
+        if (word.getNamedEntityType() != null){
+            String correct = word.getNamedEntityType().toString();
+            g.drawString(correct, currentLeft, (lineIndex + 1) * lineSpace + 30);
+        }
+    }
+
+    @Override
+    protected void setBounds() {
+        pane.setBounds(((AnnotatedWord)sentence.getWord(selectedWordIndex)).getArea().x, ((AnnotatedWord)sentence.getWord(selectedWordIndex)).getArea().y + 20, 240, (int) (Toolkit.getDefaultToolkit().getScreenSize().height * 0.4));
+    }
+
     private class ListRenderer extends DefaultListCellRenderer {
         public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
             Component cell = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);

@@ -47,6 +47,11 @@ public class SentenceSlotPanel extends SentenceAnnotatorPanel {
         pane.setBounds(((AnnotatedWord)sentence.getWord(selectedWordIndex)).getArea().x, ((AnnotatedWord)sentence.getWord(selectedWordIndex)).getArea().y + 20, 240, (int) (Toolkit.getDefaultToolkit().getScreenSize().height * 0.4));
     }
 
+    @Override
+    protected void setLineSpace() {
+        lineSpace = 80;
+    }
+
     public int populateLeaf(AnnotatedSentence sentence, int wordIndex){
         int selectedIndex = -1;
         AnnotatedWord word = (AnnotatedWord) sentence.getWord(wordIndex);

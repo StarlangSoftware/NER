@@ -59,6 +59,11 @@ public class SentenceNERPanel extends SentenceAnnotatorPanel {
         pane.setBounds(((AnnotatedWord)sentence.getWord(selectedWordIndex)).getArea().x, ((AnnotatedWord)sentence.getWord(selectedWordIndex)).getArea().y + 20, 240, (int) (Toolkit.getDefaultToolkit().getScreenSize().height * 0.4));
     }
 
+    @Override
+    protected void setLineSpace() {
+        lineSpace = 80;
+    }
+
     private class ListRenderer extends DefaultListCellRenderer {
         public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
             Component cell = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);

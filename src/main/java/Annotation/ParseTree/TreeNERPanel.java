@@ -1,5 +1,6 @@
 package Annotation.ParseTree;
 
+import AnnotatedSentence.LayerNotExistsException;
 import AnnotatedSentence.ViewLayerType;
 import AnnotatedTree.*;
 import DataCollector.ParseTree.TreeAction.LayerAction;
@@ -7,6 +8,7 @@ import DataCollector.ParseTree.TreeLeafEditorPanel;
 import NamedEntityRecognition.NamedEntityType;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class TreeNERPanel extends TreeLeafEditorPanel {
     private JList list;
@@ -63,6 +65,29 @@ public class TreeNERPanel extends TreeLeafEditorPanel {
         pane.setBounds(node.getArea().x - 5, node.getArea().y + 30, 200, 90);
         this.repaint();
         isEditing = true;
+    }
+
+    protected int getStringSize(ParseNodeDrawable parseNode, Graphics g) {
+        if (parseNode.numberOfChildren() == 0) {
+            return g.getFontMetrics().stringWidth(parseNode.getLayerData(ViewLayerType.NER));
+        } else {
+            return g.getFontMetrics().stringWidth(parseNode.getData().getName());
+        }
+    }
+
+    protected void drawString(ParseNodeDrawable parseNode, Graphics g, int x, int y){
+        int i;
+        if (parseNode.numberOfChildren() == 0){
+            g.drawString(parseNode.getLayerData(ViewLayerType.TURKISH_WORD), x, y);
+            g.setColor(Color.RED);
+            g.drawString(parseNode.getLayerData(ViewLayerType.NER), x, y + 20);
+        } else {
+            g.drawString(parseNode.getData().getName(), x, y);
+        }
+    }
+
+    protected void setArea(ParseNodeDrawable parseNode, int x, int y, int stringSize){
+        parseNode.setArea(x - 5, y - 15, stringSize + 10, 20);
     }
 
 }

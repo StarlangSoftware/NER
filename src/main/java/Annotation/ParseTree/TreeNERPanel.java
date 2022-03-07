@@ -62,7 +62,7 @@ public class TreeNERPanel extends TreeLeafEditorPanel {
         list.setVisible(true);
         pane.setVisible(true);
         pane.getVerticalScrollBar().setValue(0);
-        pane.setBounds(node.getArea().x - 5, node.getArea().y + 30, 200, 90);
+        pane.setBounds(node.getArea().getX() - 5, node.getArea().getY() + 30, 200, 90);
         this.repaint();
         isEditing = true;
     }

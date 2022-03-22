@@ -1,6 +1,5 @@
 package Annotation.ParseTree;
 
-import AnnotatedSentence.LayerNotExistsException;
 import AnnotatedSentence.ViewLayerType;
 import AnnotatedTree.*;
 import DataCollector.ParseTree.TreeAction.LayerAction;

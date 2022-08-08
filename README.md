@@ -56,6 +56,11 @@ Class Diagram
 
 <img src="classDiagram.png">
 
+Video Lectures
+============
+
+[<img src=video.jpg width="50%">](https://youtu.be/4pxdvP_Rfd8)
+
 For Developers
 ============
 

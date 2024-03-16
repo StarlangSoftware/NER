@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class SentenceSlotFrame extends SentenceAnnotatorFrame {
-    private ArrayList<String> entityList = new ArrayList<>();
+    private final ArrayList<String> entityList = new ArrayList<>();
 
     public SentenceSlotFrame(){
         super();
@@ -19,8 +19,7 @@ public class SentenceSlotFrame extends SentenceAnnotatorFrame {
                 entityList.add(input.next());
             }
             input.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        } catch (FileNotFoundException ignored) {
         }
     }
 

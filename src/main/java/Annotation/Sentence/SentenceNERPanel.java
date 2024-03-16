@@ -16,9 +16,9 @@ import java.util.List;
 import java.util.Map;
 
 public class SentenceNERPanel extends SentenceAnnotatorPanel {
-    private HashMap<String, ArrayList<AnnotatedWord>> mappedWords;
-    private HashMap<String, ArrayList<AnnotatedSentence>> mappedSentences;
-    private TurkishSentenceAutoNER turkishSentenceAutoNER;
+    private final HashMap<String, ArrayList<AnnotatedWord>> mappedWords;
+    private final HashMap<String, ArrayList<AnnotatedSentence>> mappedSentences;
+    private final TurkishSentenceAutoNER turkishSentenceAutoNER;
 
     public SentenceNERPanel(String currentPath, String fileName, HashMap<String, ArrayList<AnnotatedWord>> mappedWords, HashMap<String, ArrayList<AnnotatedSentence>> mappedSentences){
         super(currentPath, fileName, ViewLayerType.NER);
@@ -68,7 +68,7 @@ public class SentenceNERPanel extends SentenceAnnotatorPanel {
         public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
             Component cell = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
             AnnotatedWord selectedWord = ((AnnotatedWord)sentence.getWord(selectedWordIndex));
-            String examples = "<html>";
+            StringBuilder examples = new StringBuilder("<html>");
             int count = 0;
             if (mappedSentences.containsKey(selectedWord.getName())){
                 for (AnnotatedSentence annotatedSentence : mappedSentences.get(selectedWord.getName())){
@@ -76,7 +76,7 @@ public class SentenceNERPanel extends SentenceAnnotatorPanel {
                         AnnotatedWord word = (AnnotatedWord) annotatedSentence.getWord(i);
                         if (word.getName().equals(selectedWord.getName()) && word.getNamedEntityType() != null){
                             if (word.getNamedEntityType().toString().equals(value)){
-                                examples += annotatedSentence.toNamedEntityString(i) + "<br>";
+                                examples.append(annotatedSentence.toNamedEntityString(i)).append("<br>");
                                 count++;
                             }
                         }
@@ -86,8 +86,8 @@ public class SentenceNERPanel extends SentenceAnnotatorPanel {
                     }
                 }
             }
-            examples += "</html>";
-            ((JComponent) cell).setToolTipText(examples);
+            examples.append("</html>");
+            ((JComponent) cell).setToolTipText(examples.toString());
             return this;
         }
     }

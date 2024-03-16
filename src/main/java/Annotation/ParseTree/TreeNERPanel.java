@@ -10,8 +10,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class TreeNERPanel extends TreeLeafEditorPanel {
-    private JList list;
-    private DefaultListModel listModel;
+    private final JList list;
+    private final DefaultListModel listModel;
 
     public TreeNERPanel(String path, String fileName, boolean defaultFillEnabled) {
         super(path, fileName, ViewLayerType.NER, defaultFillEnabled);
@@ -75,7 +75,6 @@ public class TreeNERPanel extends TreeLeafEditorPanel {
     }
 
     protected void drawString(ParseNodeDrawable parseNode, Graphics g, int x, int y){
-        int i;
         if (parseNode.numberOfChildren() == 0){
             g.drawString(parseNode.getLayerData(ViewLayerType.TURKISH_WORD), x, y);
             g.setColor(Color.RED);

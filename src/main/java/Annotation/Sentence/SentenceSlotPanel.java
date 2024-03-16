@@ -9,7 +9,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class SentenceSlotPanel extends SentenceAnnotatorPanel {
-    private ArrayList<String> entityList;
+    private final ArrayList<String> entityList;
 
     public SentenceSlotPanel(String currentPath, String fileName, ArrayList<String> entityList){
         super(currentPath, fileName, ViewLayerType.SLOT);

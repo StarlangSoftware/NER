@@ -7,22 +7,20 @@ import DataCollector.ParseTree.TreeEditorFrame;
 import DataCollector.ParseTree.TreeEditorPanel;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
 
 public class TreeNERFrame extends TreeEditorFrame {
-    private JCheckBox autoNEROption;
+    private final JCheckBox autoNEROption;
 
     public TreeNERFrame(){
         this.setTitle("Named Entity Recognition Editor");
         autoNEROption = new JCheckBox("AutoNER", true);
         toolBar.add(autoNEROption);
         TreeBankDrawable treeBank = new TreeBankDrawable(new File(TreeEditorPanel.treePath));
-        JMenuItem itemViewAnnotations = addMenuItem(projectMenu, "View Annotations", KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
-        itemViewAnnotations.addActionListener(e -> {
-            new ViewTreeNERAnnotationFrame(treeBank, this);
-        });
+        JMenuItem itemViewAnnotations = addMenuItem(projectMenu, "View Annotations", KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
+        itemViewAnnotations.addActionListener(e -> new ViewTreeNERAnnotationFrame(treeBank, this));
     }
 
     @Override

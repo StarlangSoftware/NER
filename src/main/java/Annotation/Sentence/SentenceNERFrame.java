@@ -9,7 +9,7 @@ import DataCollector.Sentence.SentenceAnnotatorPanel;
 import NamedEntityRecognition.NamedEntityType;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.ArrayList;
@@ -17,9 +17,9 @@ import java.util.HashMap;
 
 public class SentenceNERFrame extends SentenceAnnotatorFrame {
 
-    private HashMap<String, ArrayList<AnnotatedWord>> mappedWords = new HashMap<>();
-    private HashMap<String, ArrayList<AnnotatedSentence>> mappedSentences = new HashMap<>();
-    private JCheckBox autoNERDetectionOption;
+    private final HashMap<String, ArrayList<AnnotatedWord>> mappedWords = new HashMap<>();
+    private final HashMap<String, ArrayList<AnnotatedSentence>> mappedSentences = new HashMap<>();
+    private final JCheckBox autoNERDetectionOption;
 
     public SentenceNERFrame(){
         super();
@@ -34,7 +34,7 @@ public class SentenceNERFrame extends SentenceAnnotatorFrame {
                     if (mappedWords.containsKey(word.getName())){
                         annotatedWords = mappedWords.get(word.getName());
                     } else {
-                        annotatedWords = new ArrayList<AnnotatedWord>();
+                        annotatedWords = new ArrayList<>();
                     }
                     annotatedWords.add(word);
                     mappedWords.put(word.getName(), annotatedWords);
@@ -42,7 +42,7 @@ public class SentenceNERFrame extends SentenceAnnotatorFrame {
                     if (mappedSentences.containsKey(word.getName())){
                         annotatedSentences = mappedSentences.get(word.getName());
                     } else {
-                        annotatedSentences = new ArrayList<AnnotatedSentence>();
+                        annotatedSentences = new ArrayList<>();
                     }
                     annotatedSentences.add(sentence);
                     mappedSentences.put(word.getName(), annotatedSentences);
@@ -51,10 +51,8 @@ public class SentenceNERFrame extends SentenceAnnotatorFrame {
         }
         autoNERDetectionOption = new JCheckBox("Auto Named Entity Recognition", false);
         toolBar.add(autoNERDetectionOption);
-        JMenuItem itemViewAnnotated = addMenuItem(projectMenu, "View Annotations", KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
-        itemViewAnnotated.addActionListener(e -> {
-            new ViewSentenceNERAnnotationFrame(annotatedCorpus, this);
-        });
+        JMenuItem itemViewAnnotated = addMenuItem(projectMenu, "View Annotations", KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
+        itemViewAnnotated.addActionListener(e -> new ViewSentenceNERAnnotationFrame(annotatedCorpus, this));
         JOptionPane.showMessageDialog(this, "Annotated corpus is loaded!", "Named Entity Annotation", JOptionPane.INFORMATION_MESSAGE);
     }
 

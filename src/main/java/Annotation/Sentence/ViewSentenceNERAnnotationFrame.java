@@ -105,7 +105,8 @@ public class ViewSentenceNERAnnotationFrame extends ViewSentenceAnnotationFrame 
                     int row = dataTable.rowAtPoint(evt.getPoint());
                     if (row >= 0) {
                         String fileName = data.get(row).get(0);
-                        sentenceNERFrame.addPanelToFrame(sentenceNERFrame.generatePanel(TreeEditorPanel.phrasePath, fileName), fileName);
+                        AnnotatedSentence sentence = (AnnotatedSentence) corpus.getSentence(Integer.parseInt(data.get(row).get(COLOR_COLUMN_INDEX - 1)));
+                        sentenceNERFrame.addPanelToFrame(sentenceNERFrame.generatePanel(sentence.getFile().getParent(), fileName), fileName);
                     }
                 }
             }

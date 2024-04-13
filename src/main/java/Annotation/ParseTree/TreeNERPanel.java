@@ -78,8 +78,8 @@ public class TreeNERPanel extends TreeLeafEditorPanel {
     }
 
     /**
-     * The size of the string displayed. If it is a leaf node, it returns the size of the NER tag. If it is a non-leaf
-     * node, it returns the size of the symbol in the node.
+     * The size of the string displayed. If it is a leaf node, it returns the size of the NER tag. Otherwise, it returns
+     * the size of the symbol in the node.
      * @param parseNode Parse node
      * @param g Graphics on which tree will be drawn.
      * @return Size of the string displayed.
@@ -93,7 +93,7 @@ public class TreeNERPanel extends TreeLeafEditorPanel {
     }
 
     /**
-     * Draws the NER tag of the word in the parse node.
+     * If the node is a leaf node, it draws the NER tag of the word. Otherwise, it draws the node symbol.
      * @param parseNode Parse Node
      * @param g Graphics on which symbol is drawn.
      * @param x x coordinate

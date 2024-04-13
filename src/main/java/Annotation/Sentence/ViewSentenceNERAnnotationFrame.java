@@ -3,7 +3,6 @@ package Annotation.Sentence;
 import AnnotatedSentence.AnnotatedCorpus;
 import AnnotatedSentence.AnnotatedSentence;
 import AnnotatedSentence.AnnotatedWord;
-import DataCollector.ParseTree.TreeEditorPanel;
 import DataCollector.Sentence.ViewSentenceAnnotationFrame;
 import NamedEntityRecognition.NamedEntityType;
 
@@ -15,6 +14,10 @@ import java.util.ArrayList;
 
 public class ViewSentenceNERAnnotationFrame extends ViewSentenceAnnotationFrame implements ActionListener {
 
+    /**
+     * Updates the named entity tag for the selected sentences.
+     * @param e Action event to be processed.
+     */
     public void actionPerformed(ActionEvent e) {
         super.actionPerformed(e);
         if (PASTE.equals(e.getActionCommand())) {
@@ -29,6 +32,11 @@ public class ViewSentenceNERAnnotationFrame extends ViewSentenceAnnotationFrame 
 
     public class MorphologicalTableDataModel extends TableDataModel {
 
+        /**
+         * Returns the name of the given column.
+         * @param col  the column being queried
+         * @return Name of the given column
+         */
         public String getColumnName(int col) {
             switch (col) {
                 case FILENAME_INDEX:
@@ -46,6 +54,12 @@ public class ViewSentenceNERAnnotationFrame extends ViewSentenceAnnotationFrame 
             }
         }
 
+        /**
+         * Updates the named entity tag for the sentence in the given cell.
+         * @param value   value to assign to cell
+         * @param row   row of cell
+         * @param col  column of cell
+         */
         public void setValueAt(Object value, int row, int col) {
             if (col == TAG_INDEX && !data.get(row).get(TAG_INDEX).equals(value)) {
                 updateNamedEntityType(row, (String) value);
@@ -53,6 +67,12 @@ public class ViewSentenceNERAnnotationFrame extends ViewSentenceAnnotationFrame 
         }
     }
 
+    /**
+     * Sets the value in the data table. After finding the corresponding sentence in that row, updates the named
+     * entity layer of that word associated with that row.
+     * @param row Index of the row
+     * @param newValue New entity tag to be assigned.
+     */
     private void updateNamedEntityType(int row, String newValue){
         data.get(row).set(TAG_INDEX, newValue);
         AnnotatedSentence sentence = (AnnotatedSentence) corpus.getSentence(Integer.parseInt(data.get(row).get(COLOR_COLUMN_INDEX - 1)));
@@ -61,6 +81,18 @@ public class ViewSentenceNERAnnotationFrame extends ViewSentenceAnnotationFrame 
         sentence.save();
     }
 
+    /**
+     * Constructs the data table. For every sentence, the columns are:
+     * <ol>
+     *     <li>Annotated sentence file name</li>
+     *     <li>Index of the word</li>
+     *     <li>Word itself</li>
+     *     <li>Named entity tag of the word if it exists, NONE otherwise</li>
+     *     <li>Annotated sentence itself</li>
+     *     <li>Sentence index</li>
+     * </ol>
+     * @param corpus Annotated NER corpus
+     */
     protected void prepareData(AnnotatedCorpus corpus){
         data = new ArrayList<>();
         for (int i = 0; i < corpus.sentenceCount(); i++){
@@ -85,6 +117,12 @@ public class ViewSentenceNERAnnotationFrame extends ViewSentenceAnnotationFrame 
         }
     }
 
+    /**
+     * Constructs NER annotation frame viewer. Arranges the minimum width, maximum width or with of every column. If the
+     * user double-clicks any row, the method automatically creates a new panel showing associated annotated sentence.
+     * @param corpus Annotated NER corpus
+     * @param sentenceNERFrame Frame in which new panels will be created, when the user double-clicks a row.
+     */
     public ViewSentenceNERAnnotationFrame(AnnotatedCorpus corpus, SentenceNERFrame sentenceNERFrame){
         super(corpus);
         COLOR_COLUMN_INDEX = 6;

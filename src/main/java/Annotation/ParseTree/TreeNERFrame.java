@@ -14,6 +14,10 @@ import java.io.File;
 public class TreeNERFrame extends TreeEditorFrame {
     private final JCheckBox autoNEROption;
 
+    /**
+     * Constructor of the NER frame for parse trees. It reads the annotated tree bank and adds automatic NER detection
+     * button.
+     */
     public TreeNERFrame(){
         this.setTitle("Named Entity Recognition Editor");
         autoNEROption = new JCheckBox("AutoNER", true);
@@ -28,6 +32,9 @@ public class TreeNERFrame extends TreeEditorFrame {
         return new TreeNERPanel(currentPath, rawFileName, true);
     }
 
+    /**
+     * The method automatically assigns NER tags to words in the parse tree using TurkishTreeAutoNER.
+     */
     private void autoNER(){
         TreeAutoNER treeAutoNER;
         if (autoNEROption.isSelected()){
@@ -39,11 +46,25 @@ public class TreeNERFrame extends TreeEditorFrame {
         }
     }
 
+    /**
+     * The function displays the next tree according to count and the index of the parse tree. For example, if the
+     * current tree  fileName is 0123.train, after the call of nextTree(3), ViewerPanel will display 0126.train. If the
+     * next tree  does not exist, nothing will happen. If the autoNEROption is selected, it automatically
+     * assigns NER tags to words.
+     * @param count Number of trees to go forward
+     */
     protected void nextTree(int count){
         super.nextTree(count);
         autoNER();
     }
 
+    /**
+     * Overloaded function that displays the previous tree according to count and the index of the parse tree. For
+     * example, if the current tree fileName is 0123.train, after the call of previousTree(4), ViewerPanel will
+     * display 0119.train. If the previous tree does not exist, nothing will happen. If the autoNEROption is selected,
+     * it automatically  assigns NER tags to words.
+     * @param count Number of trees to go backward
+     */
     protected void previousTree(int count){
         super.previousTree(count);
         autoNER();

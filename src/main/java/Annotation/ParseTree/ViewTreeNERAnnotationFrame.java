@@ -14,6 +14,12 @@ import java.util.ArrayList;
 
 public class ViewTreeNERAnnotationFrame extends ViewTreeAnnotationFrame {
 
+    /**
+     * After finding the corresponding parse tree in that row, updates the named entity layer of that word in the leaf
+     * node associated with that row.
+     * @param row Index of the row
+     * @param newValue Named entity tag to be assigned
+     */
     protected void updateData(int row, String newValue){
         data.get(row).set(TAG_INDEX, newValue);
         ParseTreeDrawable parseTree = treeBank.get(Integer.parseInt(data.get(row).get(COLOR_COLUMN_INDEX - 1)));
@@ -24,6 +30,18 @@ public class ViewTreeNERAnnotationFrame extends ViewTreeAnnotationFrame {
         parseTree.save();
     }
 
+    /**
+     * Constructs the data table. For every sentence, the columns are:
+     * <ol>
+     *     <li>Parse tree file name</li>
+     *     <li>Index of the word</li>
+     *     <li>Word itself</li>
+     *     <li>Named entity tag of the word if it exists, - otherwise</li>
+     *     <li>Sentence of the parse tree</li>
+     *     <li>Sentence index</li>
+     * </ol>
+     * @param treeBank Annotated NER treebank
+     */
     protected void prepareData(TreeBankDrawable treeBank) {
         data = new ArrayList<>();
         for (int i = 0; i < treeBank.size(); i++){
@@ -53,6 +71,12 @@ public class ViewTreeNERAnnotationFrame extends ViewTreeAnnotationFrame {
         }
     }
 
+    /**
+     * Constructs NER annotation frame viewer. If the user double-clicks any row, the method automatically creates a
+     * new panel showing associated parse tree.
+     * @param treeBank Annotated parse tree
+     * @param treeNERFrame Frame in which new panels will be created, when the user double-clicks a row.
+     */
     public ViewTreeNERAnnotationFrame(TreeBankDrawable treeBank, TreeNERFrame treeNERFrame){
         super(treeBank, "Named Entity");
         prepareData(treeBank);

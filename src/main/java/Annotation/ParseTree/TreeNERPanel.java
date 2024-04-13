@@ -13,6 +13,13 @@ public class TreeNERPanel extends TreeLeafEditorPanel {
     private final JList list;
     private final DefaultListModel listModel;
 
+    /**
+     * Constructor for the NER panel for a parse tree. Constructs the list used to annotated words. It also adds the
+     * list selection listener which will update the parse tree according to the selection.
+     * @param path The absolute path of the annotated parse tree.
+     * @param fileName The raw file name of the annotated parse tree.
+     * @param defaultFillEnabled If true, automatic annotation will be done.
+     */
     public TreeNERPanel(String path, String fileName, boolean defaultFillEnabled) {
         super(path, fileName, ViewLayerType.NER, defaultFillEnabled);
         listModel = new DefaultListModel();
@@ -41,6 +48,10 @@ public class TreeNERPanel extends TreeLeafEditorPanel {
         addMouseMotionListener(this);
     }
 
+    /**
+     * Fills the JList that contains all possible NER tags.
+     * @param node Selected node for which options will be displayed.
+     */
     public void populateLeaf(ParseNodeDrawable node){
         int selectedIndex = -1;
         if (previousNode != null){
@@ -66,6 +77,13 @@ public class TreeNERPanel extends TreeLeafEditorPanel {
         isEditing = true;
     }
 
+    /**
+     * The size of the string displayed. If it is a leaf node, it returns the size of the NER tag. If it is a non-leaf
+     * node, it returns the size of the symbol in the node.
+     * @param parseNode Parse node
+     * @param g Graphics on which tree will be drawn.
+     * @return Size of the string displayed.
+     */
     protected int getStringSize(ParseNodeDrawable parseNode, Graphics g) {
         if (parseNode.numberOfChildren() == 0) {
             return g.getFontMetrics().stringWidth(parseNode.getLayerData(ViewLayerType.NER));
@@ -74,6 +92,13 @@ public class TreeNERPanel extends TreeLeafEditorPanel {
         }
     }
 
+    /**
+     * Draws the NER tag of the word in the parse node.
+     * @param parseNode Parse Node
+     * @param g Graphics on which symbol is drawn.
+     * @param x x coordinate
+     * @param y y coordinate
+     */
     protected void drawString(ParseNodeDrawable parseNode, Graphics g, int x, int y){
         if (parseNode.numberOfChildren() == 0){
             g.drawString(parseNode.getLayerData(ViewLayerType.TURKISH_WORD), x, y);
@@ -84,6 +109,13 @@ public class TreeNERPanel extends TreeLeafEditorPanel {
         }
     }
 
+    /**
+     * Sets the size of the enclosing area of the parse node (for selecting, editing etc.).
+     * @param parseNode Parse Node
+     * @param x x coordinate of the center of the node.
+     * @param y y coordinate of the center of the node.
+     * @param stringSize Size of the string in terms of pixels.
+     */
     protected void setArea(ParseNodeDrawable parseNode, int x, int y, int stringSize){
         parseNode.setArea(x - 5, y - 15, stringSize + 10, 20);
     }

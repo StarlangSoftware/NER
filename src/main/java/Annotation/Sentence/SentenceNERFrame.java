@@ -23,6 +23,12 @@ public class SentenceNERFrame extends SentenceAnnotatorFrame {
     private final HashMap<String, ArrayList<AnnotatedSentence>> mappedSentences = new HashMap<>();
     private final JCheckBox autoNERDetectionOption;
 
+    /**
+     * Constructor of the NER frame for annotated sentence. It reads the annotated sentence corpus and adds automatic
+     * NER detection button. It also creates mappedWords and mappedSentences. mappedWords will be used to show the
+     * user how many times that word was annotated with different NER tags. mappedSentences will be used to show the
+     * user how other sentences with that word was annotated.
+     */
     public SentenceNERFrame(){
         super();
         AnnotatedCorpus annotatedCorpus;
@@ -30,7 +36,9 @@ public class SentenceNERFrame extends SentenceAnnotatorFrame {
         Properties properties1 = new Properties();
         try {
             properties1.load(Files.newInputStream(new File("config.properties").toPath()));
-            subFolder = properties1.getProperty("subFolder");
+            if (properties1.containsKey("subFolder")){
+                subFolder = properties1.getProperty("subFolder");
+            }
         } catch (IOException ignored) {
         }
         annotatedCorpus = readCorpus(subFolder);
@@ -70,6 +78,11 @@ public class SentenceNERFrame extends SentenceAnnotatorFrame {
         return new SentenceNERPanel(currentPath, rawFileName, mappedWords, mappedSentences);
     }
 
+    /**
+     * The next method takes an int count as input and moves forward along the SentenceNERPanels as much as the
+     * count. If the autoNERDetectionOption is selected, it automatically assigns NER tags to words.
+     * @param count Integer count is used to move forward.
+     */
     public void next(int count){
         super.next(count);
         SentenceNERPanel current;
@@ -79,6 +92,11 @@ public class SentenceNERFrame extends SentenceAnnotatorFrame {
         }
     }
 
+    /**
+     * The previous method takes an int count as input and moves backward along the SentenceNERPanels as much as the
+     * count. If the autoNERDetectionOption is selected, it automatically assigns NER tags to words.
+     * @param count Integer count is used to move backward.
+     */
     public void previous(int count){
         super.previous(count);
         SentenceNERPanel current;

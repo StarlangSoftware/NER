@@ -11,6 +11,10 @@ import java.util.Scanner;
 public class SentenceSlotFrame extends SentenceAnnotatorFrame {
     private final ArrayList<String> entityList = new ArrayList<>();
 
+    /**
+     * Constructor of the Slot frame for annotated sentence. Reads possible entity tags from entities.txt and assigns
+     * them to entityList attribute.
+     */
     public SentenceSlotFrame(){
         super();
         try {

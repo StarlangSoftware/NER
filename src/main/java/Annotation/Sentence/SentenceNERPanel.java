@@ -20,6 +20,13 @@ public class SentenceNERPanel extends SentenceAnnotatorPanel {
     private final HashMap<String, ArrayList<AnnotatedSentence>> mappedSentences;
     private final TurkishSentenceAutoNER turkishSentenceAutoNER;
 
+    /**
+     * Constructor for the NER panel for an annotated sentence. Sets the attributes.
+     * @param currentPath The absolute path of the annotated file.
+     * @param fileName The raw file name of the annotated file.
+     * @param mappedWords Enlists other annotated words that has the same word in the key.
+     * @param mappedSentences Enlists other annotated sentence that contains the same word in the key.
+     */
     public SentenceNERPanel(String currentPath, String fileName, HashMap<String, ArrayList<AnnotatedWord>> mappedWords, HashMap<String, ArrayList<AnnotatedSentence>> mappedSentences){
         super(currentPath, fileName, ViewLayerType.NER);
         this.mappedWords = mappedWords;
@@ -29,11 +36,20 @@ public class SentenceNERPanel extends SentenceAnnotatorPanel {
         setLayout(new BorderLayout());
     }
 
+    /**
+     * Updates the NER layer of the annotated word.
+     */
     @Override
     protected void setWordLayer(){
         clickedWord.setNamedEntityType((String) list.getSelectedValue());
     }
 
+    /**
+     * Compares the size of the word and the size of the NER tag in pixels and returns the maximum of them.
+     * @param word Word annotated.
+     * @param g Graphics on which NER is drawn.
+     * @return Maximum of the graphic sizes of word and its NER tag.
+     */
     @Override
     protected int getMaxLayerLength(AnnotatedWord word, Graphics g){
         int maxSize = g.getFontMetrics().stringWidth(word.getName());
@@ -46,6 +62,17 @@ public class SentenceNERPanel extends SentenceAnnotatorPanel {
         return maxSize;
     }
 
+    /**
+     * Draws the NER tag of the word.
+     * @param word Annotated word itself.
+     * @param g Graphics on which NER tag is drawn.
+     * @param currentLeft Current position on the x-axis, where the NER tag will be aligned.
+     * @param lineIndex Current line of the word, if the sentence resides in multiple lines on the screen.
+     * @param wordIndex Index of the word in the annotated sentence.
+     * @param maxSize Maximum size in pixels of anything drawn in the screen.
+     * @param wordSize Array storing the sizes of all words in pixels in the annotated sentence.
+     * @param wordTotal Array storing the total size until that word of all words in the annotated sentence.
+     */
     @Override
     protected void drawLayer(AnnotatedWord word, Graphics g, int currentLeft, int lineIndex, int wordIndex, int maxSize, ArrayList<Integer> wordSize, ArrayList<Integer> wordTotal) {
         if (word.getNamedEntityType() != null){
@@ -54,16 +81,27 @@ public class SentenceNERPanel extends SentenceAnnotatorPanel {
         }
     }
 
+    /**
+     * Sets the width and height of the JList that displays the NER tags.
+     */
     @Override
     protected void setBounds() {
         pane.setBounds(((AnnotatedWord)sentence.getWord(selectedWordIndex)).getArea().getX(), ((AnnotatedWord)sentence.getWord(selectedWordIndex)).getArea().getY() + 20, 240, (int) (Toolkit.getDefaultToolkit().getScreenSize().height * 0.4));
     }
 
+    /**
+     * Sets the space between displayed lines in the sentence.
+     */
     @Override
     protected void setLineSpace() {
         lineSpace = 80;
     }
 
+    /**
+     * Construct the tooltip text for every NER tag for selectedWord using the mappedSentences. The tooltip enlists
+     * the example sentences that contains the selectedWord annotated with that tag. If the number of example sentence
+     * are more than 20, it only displays the first 20 of them.
+     */
     private class ListRenderer extends DefaultListCellRenderer {
         public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
             Component cell = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
@@ -92,12 +130,21 @@ public class SentenceNERPanel extends SentenceAnnotatorPanel {
         }
     }
 
+    /**
+     * Automatically detects the NER tag of words in the sentence using turkishSentenceAutoNER.
+     */
     public void autoDetect(){
         turkishSentenceAutoNER.autoNER(sentence);
         sentence.save();
         this.repaint();
     }
 
+    /**
+     * Sorts the NER tags according to usage frequency (how many times they are used to tag that word) in decreasing
+     * order.
+     * @param word The selected word
+     * @return NER tags sorted in decreasing order of usage frequency.
+     */
     private NamedEntityType[] possibleValues(String word){
         if (!mappedWords.containsKey(word)){
             return NamedEntityType.values();
@@ -122,6 +169,13 @@ public class SentenceNERPanel extends SentenceAnnotatorPanel {
         return result;
     }
 
+    /**
+     * Fills the JList that contains all possible NER tags. The NER tags are sorted in decreasing order of usage
+     * frequency of those tags for that word.
+     * @param sentence Sentence used to populate for the current word.
+     * @param wordIndex Index of the selected word.
+     * @return The index of the selected tag, -1 if nothing selected.
+     */
     public int populateLeaf(AnnotatedSentence sentence, int wordIndex){
         int selectedIndex = -1;
         AnnotatedWord word = (AnnotatedWord) sentence.getWord(wordIndex);

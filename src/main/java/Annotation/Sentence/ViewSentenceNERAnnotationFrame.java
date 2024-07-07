@@ -30,7 +30,7 @@ public class ViewSentenceNERAnnotationFrame extends ViewSentenceAnnotationFrame 
         dataTable.invalidate();
     }
 
-    public class MorphologicalTableDataModel extends TableDataModel {
+    public class NERTableDataModel extends TableDataModel {
 
         /**
          * Returns the name of the given column.
@@ -128,7 +128,7 @@ public class ViewSentenceNERAnnotationFrame extends ViewSentenceAnnotationFrame 
         COLOR_COLUMN_INDEX = 6;
         TAG_INDEX = 3;
         prepareData(corpus);
-        dataTable = new JTable(new MorphologicalTableDataModel());
+        dataTable = new JTable(new NERTableDataModel());
         dataTable.getColumnModel().getColumn(FILENAME_INDEX).setMinWidth(150);
         dataTable.getColumnModel().getColumn(FILENAME_INDEX).setMaxWidth(150);
         dataTable.getColumnModel().getColumn(WORD_POS_INDEX).setMinWidth(60);

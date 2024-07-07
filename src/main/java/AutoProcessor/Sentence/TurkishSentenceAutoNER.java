@@ -79,7 +79,6 @@ public class TurkishSentenceAutoNER extends SentenceAutoNER {
         }
     }
 
-
     /**
      * The method checks for the MONEY entities using regular expressions. After that, if the expression is a MONEY
      * expression, it also assigns the previous text, which may included numbers or some monetarial texts, MONEY tag.
